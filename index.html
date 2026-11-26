@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ganita Prakash (Part 2) — Class 8 Maths | Page 67: Figure it Out</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --indigo-dark: #1e1b4b;
+            --slate-dark: #0f172a;
+            --teal-direct: #0d9488;
+            --rose-inverse: #e11d48;
+            --book-blue: #26466d;
+            --book-yellow: #e5a91a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b 0%, #0f172a 60%, #090d16 100%);
+            color: #0f172a;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .math-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Ambient Background Animations */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-14px) rotate(4deg); }
+        }
+        @keyframes wheelSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes waterRipple {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.03); }
+        }
+
+        .float-slow { animation: floatSlow 6s ease-in-out infinite; }
+        .wheel-spin { transform-origin: center; animation: wheelSpin 1.2s linear infinite; }
+
+        /* 3D Slide Deck Transitions */
+        .deck-viewport {
+            perspective: 1600px;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(65px) scale(0.96) rotateY(-3deg);
+            transition: all 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4.25rem 1rem 4.75rem 1rem;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0) scale(1) rotateY(0deg);
+            z-index: 10;
+        }
+
+        .slide.prev {
+            opacity: 0;
+            transform: translateX(-65px) scale(0.96) rotateY(3deg);
+            z-index: 5;
+        }
+
+        /* Staggered Entrance Animations */
+        .slide.active .anim-in {
+            animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .slide.active .d-1 { animation-delay: 0.06s; opacity: 0; }
+        .slide.active .d-2 { animation-delay: 0.14s; opacity: 0; }
+        .slide.active .d-3 { animation-delay: 0.22s; opacity: 0; }
+        .slide.active .d-4 { animation-delay: 0.30s; opacity: 0; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Crisp Slide Sheet */
+        .slide-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Step-by-Step Reveal Styling */
+        .step-box {
+            opacity: 0.22;
+            transform: translateX(-6px);
+            filter: blur(1px);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .step-box.revealed {
+            opacity: 1;
+            transform: translateX(0);
+            filter: blur(0);
+        }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 8px;
+            border-radius: 999px;
+            background: #cbd5e1;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #1e1b4b;
+            border: 3px solid #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+            margin-top: -6px;
+            cursor: pointer;
+        }
+
+        /* Classroom Edit Mode */
+        body.edit-mode [contenteditable="true"] {
+            outline: 2px dashed #f59e0b;
+            outline-offset: 2px;
+            border-radius: 6px;
+            background-color: rgba(254, 243, 199, 0.45);
+            user-select: text;
+            cursor: text;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.45); border-radius: 999px; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Top Progress Bar -->
+    <div class="fixed top-0 left-0 right-0 h-1.5 bg-slate-950 z-50">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-teal-400 via-amber-400 to-rose-500 transition-all duration-500" style="width: 14.28%;"></div>
+    </div>
+
+    <!-- Top Classroom Header Bar -->
+    <header class="fixed top-2.5 left-3 right-3 sm:left-6 sm:right-6 z-40 flex items-center justify-between pointer-events-none">
+        <div class="bg-slate-900/90 backdrop-blur-md border border-slate-700 px-3.5 py-1.5 rounded-full flex items-center gap-2.5 shadow-lg pointer-events-auto">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+            <span class="text-xs sm:text-sm font-extrabold tracking-wide text-white">GANITA PRAKASH (PART 2)</span>
+            <span class="hidden md:inline-block text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 font-semibold">
+                Class 8 Maths • Page 67: Figure it Out
+            </span>
+        </div>
+
+        <div class="flex items-center gap-2 pointer-events-auto">
+            <button onclick="toggleEditMode()" class="bg-slate-900/90 backdrop-blur-md border border-amber-400/40 px-3 py-1.5 rounded-full text-xs font-bold text-amber-300 hover:bg-amber-500/20 transition flex items-center gap-1.5 shadow-lg">
+                <span>✏️</span>
+                <span id="editBtnText">Edit Text</span>
+            </button>
+            <button onclick="toggleGridModal()" class="bg-slate-900/90 backdrop-blur-md border border-teal-400/40 px-3 py-1.5 rounded-full text-xs font-bold text-teal-300 hover:bg-teal-500/20 transition flex items-center gap-1.5 shadow-lg">
+                <span>📑</span>
+                <span class="hidden sm:inline">Slides (7)</span>
+            </button>
+            <button onclick="toggleFullscreen()" title="Fullscreen Mode" class="bg-slate-900/90 backdrop-blur-md border border-slate-700 px-2.5 py-1.5 rounded-full text-xs font-bold text-slate-200 hover:bg-slate-800 transition shadow-lg">
+                ⛶
+            </button>
+        </div>
+    </header>
+
+    <!-- Main 3D Presentation Viewport -->
+    <main class="deck-viewport">
+
+        <!-- =====================================================================
+             SLIDE 1: TITLE & CORE FORMULAS OVERVIEW
+        ===================================================================== -->
+        <section class="slide active" data-title="1. Title & Core Formulas">
+            <div class="max-w-6xl mx-auto w-full slide-card p-6 sm:p-10 relative overflow-hidden">
+                <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-indigo-900 via-teal-500 to-rose-500"></div>
+
+                <div class="text-center mb-7">
+                    <span class="anim-in inline-block px-4 py-1 rounded-full bg-indigo-100 text-indigo-900 text-xs sm:text-sm font-extrabold tracking-wide mb-3">
+                        NCERT CLASS 8 MATHEMATICS • CHAPTER 3: PROPORTIONAL REASONING–2
+                    </span>
+                    <h1 class="anim-in d-1 text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight editable">
+                        Ganita Prakash (Part 2) — Class 8 Maths
+                    </h1>
+                    <div class="anim-in d-2 mt-2 inline-block px-5 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-extrabold text-base sm:text-xl shadow-sm editable">
+                        Page 67: “Figure it Out” — Complete Solutions &amp; Simulations
+                    </div>
+                </div>
+
+                <!-- Two Core Formula Cards Upfront -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-7">
+                    <!-- Direct Proportion Formula Card -->
+                    <div class="anim-in d-2 rounded-2xl p-6 bg-gradient-to-br from-teal-50 to-emerald-50 border-2 border-teal-500 shadow-md relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-full bg-teal-600 text-white text-xs font-extrabold uppercase tracking-wider">
+                                1. Direct Proportion Formula
+                            </span>
+                            <span class="text-xl font-extrabold text-teal-700">↑ ↑ &nbsp;/&nbsp; ↓ ↓</span>
+                        </div>
+                        <div class="bg-white border border-teal-200 rounded-xl p-4 text-center my-3 shadow-inner">
+                            <div class="math-font text-xl sm:text-2xl font-extrabold text-teal-800">
+                                x₁ / y₁ = x₂ / y₂ &nbsp;&nbsp;or&nbsp;&nbsp; x = k · y
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-700 leading-relaxed editable">
+                            <strong>Rule:</strong> As <span class="math-font font-bold text-teal-800">x</span> increases, <span class="math-font font-bold text-teal-800">y</span> increases at the <strong>same constant ratio <span class="math-font">k = x / y</span></strong>.
+                        </p>
+                        <div class="mt-3 text-xs font-bold text-teal-900 bg-teal-200/60 px-3 py-1.5 rounded-lg">
+                            Used in: Q1 (iii, v, vi), Question 2 (Pencils), Question 4 (Sleep Charts)
+                        </div>
+                    </div>
+
+                    <!-- Inverse Proportion Formula Card -->
+                    <div class="anim-in d-3 rounded-2xl p-6 bg-gradient-to-br from-rose-50 to-orange-50 border-2 border-rose-500 shadow-md relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-full bg-rose-600 text-white text-xs font-extrabold uppercase tracking-wider">
+                                2. Inverse Proportion Formula
+                            </span>
+                            <span class="text-xl font-extrabold text-rose-700">↑ ↓ &nbsp;/&nbsp; ↓ ↑</span>
+                        </div>
+                        <div class="bg-white border border-rose-200 rounded-xl p-4 text-center my-3 shadow-inner">
+                            <div class="math-font text-xl sm:text-2xl font-extrabold text-rose-800">
+                                x₁ × y₁ = x₂ × y₂ &nbsp;&nbsp;or&nbsp;&nbsp; x · y = k
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-700 leading-relaxed editable">
+                            <strong>Rule:</strong> As <span class="math-font font-bold text-rose-800">x</span> increases, <span class="math-font font-bold text-rose-800">y</span> decreases so that their <strong>product <span class="math-font">k = x × y</span> stays constant</strong>.
+                        </p>
+                        <div class="mt-3 text-xs font-bold text-rose-900 bg-rose-200/60 px-3 py-1.5 rounded-lg">
+                            Used in: Q1 (i, ii, iv), Question 3 (Building Water Tank Supply)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="anim-in d-4 flex flex-wrap items-center justify-center gap-4">
+                    <button onclick="nextSlide()" class="px-8 py-3.5 rounded-2xl bg-indigo-950 hover:bg-indigo-900 text-white font-extrabold text-base shadow-xl transition transform hover:scale-105 flex items-center gap-2">
+                        <span>Explore Question 1 Simulations</span>
+                        <span>→</span>
+                    </button>
+                    <span class="text-xs text-slate-500 font-semibold">Navigate with <kbd class="px-2 py-0.5 bg-slate-100 border rounded">←</kbd> <kbd class="px-2 py-0.5 bg-slate-100 border rounded">→</kbd> or <kbd class="px-2 py-0.5 bg-slate-100 border rounded">Space</kbd></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             SLIDE 2: QUESTION 1 (PART 1: SUB-PARTS i, ii, iii + SIMULATIONS)
+        ===================================================================== -->
+        <section class="slide" data-title="2. Question 1 (i–iii) + Simulations">
+            <div class="max-w-6xl mx-auto w-full slide-card p-5 sm:p-8">
+                <div class="anim-in border-b border-slate-200 pb-3 mb-4 flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-amber-600">Page 67 • Figure it Out — Question 1 (Part 1 of 2)</span>
+                        <h2 class="text-lg sm:text-2xl font-extrabold text-slate-900 editable">
+                            1. Which of the following pairs of quantities are in inverse proportion?
+                        </h2>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">Drag Sliders to Simulate!</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <!-- (i) Taps Filling a Water Tank -->
+                    <div class="anim-in d-1 rounded-2xl border-2 border-rose-400 bg-rose-50/40 p-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-slate-900 text-white font-bold text-xs">(i)</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-rose-600 text-white text-[11px] font-extrabold uppercase">Inverse Proportion</span>
+                            </div>
+                            <p class="text-xs sm:text-sm font-bold text-slate-900 mb-2 editable">
+                                The number of taps filling a water tank and the time taken to fill it.
+                            </p>
+                            <div class="bg-white border border-rose-200 rounded-lg p-2 math-font text-xs text-rose-800 font-bold mb-2">
+                                Formula: N<sub>taps</sub> × T<sub>time</sub> = Volume (k)
+                            </div>
+                            <p class="text-xs text-slate-600 mb-3 editable">
+                                <strong>Reasoning:</strong> More identical taps pour water faster, reducing total fill time proportionally (e.g., 60 L tank).
+                            </p>
+                        </div>
+
+                        <!-- Interactive Tank Tap Simulator -->
+                        <div class="bg-slate-900 text-white rounded-xl p-3">
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>Taps: <span id="simTapsVal" class="text-amber-400">2</span></span>
+                                <span>Fill Time: <span id="simTapsTime" class="text-rose-400">30 min</span></span>
+                            </div>
+                            <input type="range" id="simTapsSlider" min="1" max="6" value="2" oninput="updateTapsSim()" class="w-full mb-2">
+                            <!-- Visual Taps & Tank -->
+                            <div class="flex items-center justify-between gap-2 bg-slate-800 p-2 rounded-lg">
+                                <div id="tapsIconsRow" class="flex gap-1 text-base">🚰🚰</div>
+                                <div class="w-24 h-8 bg-slate-700 rounded border border-cyan-400 overflow-hidden relative flex items-center justify-center">
+                                    <div id="simTapWater" class="absolute left-0 top-0 bottom-0 bg-cyan-500/70 transition-all duration-300" style="width: 33%;"></div>
+                                    <span class="relative text-[10px] font-bold math-font">60 L Tank</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- (ii) Painters Hired vs Days -->
+                    <div class="anim-in d-2 rounded-2xl border-2 border-rose-400 bg-rose-50/40 p-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-slate-900 text-white font-bold text-xs">(ii)</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-rose-600 text-white text-[11px] font-extrabold uppercase">Inverse Proportion</span>
+                            </div>
+                            <p class="text-xs sm:text-sm font-bold text-slate-900 mb-2 editable">
+                                The number of painters hired and the days needed to paint a wall of fixed size.
+                            </p>
+                            <div class="bg-white border border-rose-200 rounded-lg p-2 math-font text-xs text-rose-800 font-bold mb-2">
+                                Formula: P × D = Total Man-Days (k)
+                            </div>
+                            <p class="text-xs text-slate-600 mb-3 editable">
+                                <strong>Reasoning:</strong> More painters working at the same pace finish a fixed 24 man-day wall in fewer days.
+                            </p>
+                        </div>
+
+                        <!-- Interactive Painters Simulator -->
+                        <div class="bg-slate-900 text-white rounded-xl p-3">
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>Painters: <span id="simPaintersVal" class="text-amber-400">3</span></span>
+                                <span>Days Needed: <span id="simPaintersDays" class="text-rose-400">8 days</span></span>
+                            </div>
+                            <input type="range" id="simPaintersSlider" min="1" max="8" value="3" oninput="updatePaintersSim()" class="w-full mb-2">
+                            <div class="flex items-center justify-between gap-2 bg-slate-800 p-2 rounded-lg">
+                                <div id="paintersIconsRow" class="text-sm tracking-tight">🧑‍🎨🧑‍🎨🧑‍🎨</div>
+                                <div class="text-[11px] math-font text-amber-300 font-bold" id="paintersProductLabel">3 × 8 = 24</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- (iii) Car Distance vs Petrol -->
+                    <div class="anim-in d-3 rounded-2xl border-2 border-teal-400 bg-teal-50/40 p-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-slate-900 text-white font-bold text-xs">(iii)</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-teal-600 text-white text-[11px] font-extrabold uppercase">Direct Proportion</span>
+                            </div>
+                            <p class="text-xs sm:text-sm font-bold text-slate-900 mb-2 editable">
+                                The distance a car can travel and the amount of petrol in the tank.
+                            </p>
+                            <div class="bg-white border border-teal-200 rounded-lg p-2 math-font text-xs text-teal-800 font-bold mb-2">
+                                Formula: Distance / Petrol = Mileage (k)
+                            </div>
+                            <p class="text-xs text-slate-600 mb-3 editable">
+                                <strong>Reasoning:</strong> More petrol lets the car travel farther at constant mileage (15 km/L). <strong>Not inverse!</strong>
+                            </p>
+                        </div>
+
+                        <!-- Interactive Fuel-Distance Bar -->
+                        <div class="bg-slate-900 text-white rounded-xl p-3">
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>Petrol: <span id="simPetrolVal" class="text-amber-400">4 L</span></span>
+                                <span>Distance: <span id="simPetrolDist" class="text-teal-400">60 km</span></span>
+                            </div>
+                            <input type="range" id="simPetrolSlider" min="1" max="10" value="4" oninput="updatePetrolSim()" class="w-full mb-2">
+                            <div class="w-full h-6 bg-slate-800 rounded-lg overflow-hidden relative flex items-center px-2">
+                                <div id="simPetrolBar" class="absolute left-0 top-0 bottom-0 bg-teal-500/60 transition-all duration-300" style="width: 40%;"></div>
+                                <span class="relative text-[11px] math-font font-bold">🚗 Mileage = 15 km/L</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             SLIDE 3: QUESTION 1 (PART 2: SUB-PARTS iv, v, vi + CYCLIST SIMULATION)
+        ===================================================================== -->
+        <section class="slide" data-title="3. Question 1 (iv–vi) + Cyclist Sim">
+            <div class="max-w-6xl mx-auto w-full slide-card p-5 sm:p-8">
+                <div class="anim-in border-b border-slate-200 pb-3 mb-4 flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-amber-600">Page 67 • Figure it Out — Question 1 (Part 2 of 2)</span>
+                        <h2 class="text-lg sm:text-2xl font-extrabold text-slate-900 editable">
+                            1. Identifying Inverse Proportion — Sub-parts (iv), (v), and (vi)
+                        </h2>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-extrabold">
+                        Final Answer: (i), (ii), and (iv) are Inverse!
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <!-- (iv) Cyclist Speed vs Time (Interactive Race Track!) -->
+                    <div class="anim-in d-1 rounded-2xl border-2 border-rose-400 bg-rose-50/40 p-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-slate-900 text-white font-bold text-xs">(iv)</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-rose-600 text-white text-[11px] font-extrabold uppercase">Inverse Proportion</span>
+                            </div>
+                            <p class="text-xs sm:text-sm font-bold text-slate-900 mb-2 editable">
+                                The speed of a cyclist and the time taken to cover a fixed route.
+                            </p>
+                            <div class="bg-white border border-rose-200 rounded-lg p-2 math-font text-xs text-rose-800 font-bold mb-2">
+                                Formula: Speed × Time = Fixed Distance (k)
+                            </div>
+                            <p class="text-xs text-slate-600 mb-3 editable">
+                                <strong>Reasoning:</strong> Higher cycling speed covers a fixed 60 km route in fewer hours.
+                            </p>
+                        </div>
+
+                        <!-- Interactive Cyclist Race Track Simulator -->
+                        <div class="bg-slate-900 text-white rounded-xl p-3">
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>Speed: <span id="simCyclistSpeed" class="text-amber-400">15 km/h</span></span>
+                                <span>Time: <span id="simCyclistTime" class="text-rose-400">4.0 hrs</span></span>
+                            </div>
+                            <input type="range" id="simCyclistSlider" min="10" max="30" step="5" value="15" oninput="updateCyclistSim()" class="w-full mb-2">
+                            <!-- Animated Track -->
+                            <div class="bg-slate-800 p-2 rounded-lg relative overflow-hidden">
+                                <div class="flex justify-between text-[10px] text-slate-400 math-font mb-1">
+                                    <span>Start (0 km)</span>
+                                    <span>Fixed 60 km</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-700 rounded-full relative">
+                                    <div id="cyclistTrackFill" class="h-full bg-rose-500 rounded-full transition-all duration-300" style="width: 50%;"></div>
+                                </div>
+                                <div class="mt-1.5 flex items-center justify-between">
+                                    <span class="text-xs math-font text-amber-300 font-bold" id="cyclistEqLabel">15 × 4 = 60 km</span>
+                                    <button onclick="animateCyclistDash()" class="px-2 py-0.5 rounded bg-rose-600 hover:bg-rose-500 text-[10px] font-bold">▶ Ride</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- (v) Length of Cloth vs Price -->
+                    <div class="anim-in d-2 rounded-2xl border-2 border-teal-400 bg-teal-50/40 p-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-slate-900 text-white font-bold text-xs">(v)</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-teal-600 text-white text-[11px] font-extrabold uppercase">Direct Proportion</span>
+                            </div>
+                            <p class="text-xs sm:text-sm font-bold text-slate-900 mb-2 editable">
+                                The length of cloth bought and the price paid at a fixed rate per metre.
+                            </p>
+                            <div class="bg-white border border-teal-200 rounded-lg p-2 math-font text-xs text-teal-800 font-bold mb-2">
+                                Formula: Price / Length = Rate per m (k)
+                            </div>
+                            <p class="text-xs text-slate-600 mb-3 editable">
+                                <strong>Reasoning:</strong> Buying more metres increases the total cost proportionally (e.g., ₹80 per metre). <strong>Not inverse!</strong>
+                            </p>
+                        </div>
+
+                        <div class="bg-slate-900 text-white rounded-xl p-3">
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>Cloth: <span id="simClothVal" class="text-amber-400">3 m</span></span>
+                                <span>Price: <span id="simClothPrice" class="text-teal-400">₹240</span></span>
+                            </div>
+                            <input type="range" id="simClothSlider" min="1" max="10" value="3" oninput="updateClothSim()" class="w-full mb-2">
+                            <div class="bg-slate-800 p-2 rounded-lg text-[11px] math-font text-teal-300 font-bold text-center">
+                                Fixed Rate = ₹80 / metre
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- (vi) Number of Pages vs Reading Time -->
+                    <div class="anim-in d-3 rounded-2xl border-2 border-teal-400 bg-teal-50/40 p-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-slate-900 text-white font-bold text-xs">(vi)</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-teal-600 text-white text-[11px] font-extrabold uppercase">Direct Proportion</span>
+                            </div>
+                            <p class="text-xs sm:text-sm font-bold text-slate-900 mb-2 editable">
+                                The number of pages in a book and the time required to read it at a fixed reading speed.
+                            </p>
+                            <div class="bg-white border border-teal-200 rounded-lg p-2 math-font text-xs text-teal-800 font-bold mb-2">
+                                Formula: Pages / Time = Reading Speed (k)
+                            </div>
+                            <p class="text-xs text-slate-600 mb-3 editable">
+                                <strong>Reasoning:</strong> More pages require proportionally more time at a fixed pace (e.g., 20 pages/hr). <strong>Not inverse!</strong>
+                            </p>
+                        </div>
+
+                        <div class="bg-slate-900 text-white rounded-xl p-3">
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>Pages: <span id="simPagesVal" class="text-amber-400">60 pages</span></span>
+                                <span>Time: <span id="simPagesTime" class="text-teal-400">3 hrs</span></span>
+                            </div>
+                            <input type="range" id="simPagesSlider" min="20" max="200" step="20" value="60" oninput="updatePagesSim()" class="w-full mb-2">
+                            <div class="bg-slate-800 p-2 rounded-lg text-[11px] math-font text-teal-300 font-bold text-center">
+                                Fixed Speed = 20 pages / hour
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             SLIDE 4: QUESTION 2 — COST OF PENCILS (STEP-BY-STEP + SIMULATION)
+        ===================================================================== -->
+        <section class="slide" data-title="4. Question 2: Cost of Pencils">
+            <div class="max-w-6xl mx-auto w-full slide-card p-5 sm:p-8">
+                <div class="anim-in flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-teal-700">Page 67 • Figure it Out — Question 2</span>
+                        <h2 class="text-lg sm:text-2xl font-extrabold text-slate-900 editable">
+                            2. If 24 pencils cost ₹120, how much will 20 such pencils cost?
+                        </h2>
+                    </div>
+                    <button onclick="revealNextStep('q2')" class="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs sm:text-sm shadow transition flex items-center gap-2">
+                        <span>Reveal Next Step</span>
+                        <span id="q2Badge" class="px-2 py-0.5 rounded bg-black/25 math-font">1 / 4</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- Left: Step-by-Step Formula Explanation -->
+                    <div class="anim-in d-1 lg:col-span-7 space-y-2.5" id="q2Steps">
+                        <div class="bg-teal-900 text-white p-3.5 rounded-xl flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-teal-300">Formula Used (Direct Proportion)</span>
+                            <span class="math-font text-sm sm:text-base font-extrabold">x₁ / y₁ = x₂ / y₂</span>
+                        </div>
+
+                        <div class="step-box revealed bg-slate-50 border border-slate-200 p-3.5 rounded-xl">
+                            <div class="text-xs font-extrabold text-teal-700 uppercase">Step 1: Identify Proportion</div>
+                            <p class="text-xs sm:text-sm text-slate-800 mt-1 editable">
+                                Buying more pencils increases the total cost proportionally → <strong>Direct Proportion</strong>.
+                            </p>
+                        </div>
+
+                        <div class="step-box bg-slate-50 border border-slate-200 p-3.5 rounded-xl">
+                            <div class="text-xs font-extrabold text-indigo-700 uppercase">Step 2: Set Known &amp; Unknown Values</div>
+                            <p class="math-font text-xs sm:text-sm text-slate-800 mt-1 editable">
+                                x₁ = 24 pencils, &nbsp;y₁ = ₹120 &nbsp;&nbsp;|&nbsp;&nbsp; x₂ = 20 pencils, &nbsp;y₂ = ?
+                            </p>
+                        </div>
+
+                        <div class="step-box bg-slate-50 border border-slate-200 p-3.5 rounded-xl">
+                            <div class="text-xs font-extrabold text-indigo-700 uppercase">Step 3: Apply Direct Proportion Formula</div>
+                            <p class="math-font text-xs sm:text-sm text-slate-800 mt-1 editable">
+                                24 / 120 = 20 / y₂ &nbsp;⇒&nbsp; y₂ = (20 × 120) / 24
+                            </p>
+                        </div>
+
+                        <div class="step-box bg-teal-50 border-2 border-teal-500 p-3.5 rounded-xl">
+                            <div class="text-xs font-extrabold text-teal-800 uppercase">Step 4: Calculate Unit Cost &amp; Final Answer</div>
+                            <p class="math-font text-xs sm:text-sm text-slate-900 mt-1 editable">
+                                Unit cost = ₹120 ÷ 24 = <strong>₹5 per pencil</strong> &nbsp;→&nbsp; 20 × ₹5 = <span class="text-teal-700 font-extrabold text-base">₹100</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Interactive Pencil Cost Simulator (1 to 30 pencils) -->
+                    <div class="anim-in d-2 lg:col-span-5 bg-slate-900 text-white p-5 rounded-2xl shadow-xl">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-amber-400">Interactive Pencil Simulator</span>
+                            <button onclick="setPencilSlider(20)" class="px-2.5 py-1 rounded-lg bg-teal-600 hover:bg-teal-500 text-xs font-bold">Reset to 20</button>
+                        </div>
+
+                        <div class="flex justify-between items-baseline mb-2">
+                            <span class="text-sm font-bold">Pencils (x₂): <span id="pencilCountText" class="text-2xl font-extrabold text-amber-400 math-font">20</span></span>
+                            <span class="text-sm font-bold">Total Cost (y₂): <span id="pencilCostText" class="text-2xl font-extrabold text-teal-400 math-font">₹100</span></span>
+                        </div>
+
+                        <input type="range" id="pencilSlider" min="1" max="30" value="20" oninput="updatePencilSim()" class="w-full mb-4">
+
+                        <!-- Visual Pencil Grid -->
+                        <div class="bg-slate-800 rounded-xl p-3 mb-3 min-h-[108px] flex flex-wrap gap-1.5 content-start" id="pencilVisualGrid">
+                            <!-- Filled dynamically by JS -->
+                        </div>
+
+                        <!-- Live Ratio Equation Update -->
+                        <div class="bg-slate-950 border border-slate-700 rounded-xl p-3 math-font text-xs space-y-1">
+                            <div class="text-slate-400">Live Direct Ratio Check (x / y = 1/5):</div>
+                            <div id="livePencilEq" class="text-teal-300 font-bold text-sm">24 / 120 = 20 / 100 = 0.20</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             SLIDE 5: QUESTION 3 — BUILDING WATER TANK SUPPLY (STEP-BY-STEP + SIM)
+        ===================================================================== -->
+        <section class="slide" data-title="5. Question 3: Building Water Supply">
+            <div class="max-w-6xl mx-auto w-full slide-card p-5 sm:p-8">
+                <div class="anim-in flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-rose-600">Page 67 • Figure it Out — Question 3</span>
+                        <h2 class="text-base sm:text-xl font-extrabold text-slate-900 editable">
+                            3. A tank on a building has enough water to supply 20 families for 6 days. If 10 more families move in there, how long will the water last? What assumptions do you need to make to work out this problem?
+                        </h2>
+                    </div>
+                    <button onclick="revealNextStep('q3')" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs sm:text-sm shadow transition flex items-center gap-2">
+                        <span>Reveal Next Step</span>
+                        <span id="q3Badge" class="px-2 py-0.5 rounded bg-black/25 math-font">1 / 4</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+                    <!-- Left: Step-by-Step Solution + Math Talk Assumptions -->
+                    <div class="anim-in d-1 lg:col-span-7 space-y-2.5" id="q3Steps">
+                        <div class="bg-rose-900 text-white p-3 rounded-xl flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-rose-200">Formula Used (Inverse Proportion)</span>
+                            <span class="math-font text-sm sm:text-base font-extrabold">x₁ × y₁ = x₂ × y₂</span>
+                        </div>
+
+                        <div class="step-box revealed bg-slate-50 border border-slate-200 p-3 rounded-xl">
+                            <div class="text-xs font-extrabold text-indigo-700 uppercase">Step 1: Find Total Families</div>
+                            <p class="math-font text-xs sm:text-sm text-slate-800 mt-1 editable">
+                                Initial = 20 families. 10 more move in → x₂ = 20 + 10 = <strong>30 families</strong>.
+                            </p>
+                        </div>
+
+                        <div class="step-box bg-slate-50 border border-slate-200 p-3 rounded-xl">
+                            <div class="text-xs font-extrabold text-rose-700 uppercase">Step 2: Identify Proportion</div>
+                            <p class="text-xs sm:text-sm text-slate-800 mt-1 editable">
+                                More families sharing a fixed water tank = fewer days → <strong>Inverse Proportion</strong>.
+                            </p>
+                        </div>
+
+                        <div class="step-box bg-slate-50 border border-slate-200 p-3 rounded-xl">
+                            <div class="text-xs font-extrabold text-rose-700 uppercase">Step 3: Apply Formula</div>
+                            <p class="math-font text-xs sm:text-sm text-slate-800 mt-1 editable">
+                                20 × 6 = 30 × y₂ &nbsp;⇒&nbsp; 120 = 30 · y₂
+                            </p>
+                        </div>
+
+                        <div class="step-box bg-rose-50 border-2 border-rose-500 p-3 rounded-xl">
+                            <div class="text-xs font-extrabold text-rose-800 uppercase">Step 4: Solve for Days (y₂)</div>
+                            <p class="math-font text-xs sm:text-sm text-slate-900 mt-1 editable">
+                                y₂ = 120 / 30 = <span class="text-rose-700 font-extrabold text-base">4 days</span>
+                            </p>
+                        </div>
+
+                        <!-- Textbook "Math Talk" Assumptions Box -->
+                        <div class="bg-amber-50 border-2 border-amber-400 p-3 rounded-xl">
+                            <div class="flex items-center gap-2 text-xs font-extrabold text-amber-900 uppercase mb-1">
+                                <span>💬 Math Talk — Assumptions Needed:</span>
+                            </div>
+                            <ol class="text-xs text-slate-800 list-decimal pl-4 space-y-0.5 editable">
+                                <li>Every family consumes the <strong>same average amount of water per day</strong>.</li>
+                                <li><strong>No extra water</strong> is added or refilled into the tank during this period.</li>
+                                <li><strong>No water is lost</strong> to tank leaks or wastage.</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Rooftop Water Tank Simulator (10 to 40 families) -->
+                    <div class="anim-in d-2 lg:col-span-5 bg-slate-900 text-white p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-extrabold uppercase tracking-wider text-cyan-300">Rooftop Water Tank Simulator</span>
+                                <div class="flex gap-1">
+                                    <button onclick="setFamiliesSlider(20)" class="px-2 py-0.5 rounded bg-cyan-700 hover:bg-cyan-600 text-[11px] font-bold">20 Fam</button>
+                                    <button onclick="setFamiliesSlider(30)" class="px-2 py-0.5 rounded bg-rose-600 hover:bg-rose-500 text-[11px] font-bold">30 Fam</button>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-baseline mb-2">
+                                <span class="text-sm font-bold">Families (x₂): <span id="simFamiliesText" class="text-2xl font-extrabold text-amber-400 math-font">30</span></span>
+                                <span class="text-sm font-bold">Lasts (y₂): <span id="simDaysText" class="text-2xl font-extrabold text-rose-400 math-font">4.0 days</span></span>
+                            </div>
+
+                            <input type="range" id="familiesSlider" min="10" max="40" step="5" value="30" oninput="updateTankSim()" class="w-full mb-3">
+                        </div>
+
+                        <!-- Animated SVG Rooftop Tank -->
+                        <div class="bg-slate-800 rounded-xl p-3 flex flex-col items-center">
+                            <svg viewBox="0 0 220 130" class="w-52 h-auto">
+                                <!-- Building Roof Base -->
+                                <rect x="20" y="114" width="180" height="10" rx="3" fill="#475569"/>
+                                <!-- Tank Body -->
+                                <rect x="40" y="14" width="140" height="100" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="3"/>
+                                <!-- Animated Water Level -->
+                                <rect id="rooftopWaterLevel" x="44" y="48" width="132" height="62" rx="6" fill="rgba(14, 165, 233, 0.65)" class="transition-all duration-500"/>
+                                <text x="110" y="42" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle">TOTAL = 120 FAMILY-DAYS</text>
+                                <text id="tankSvgMain" x="110" y="72" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">30 Families</text>
+                                <text id="tankSvgSub" x="110" y="92" fill="#fde047" font-size="13" font-weight="bold" text-anchor="middle">Water lasts 4 days</text>
+                            </svg>
+
+                            <div id="tankProductEq" class="mt-2 math-font text-xs text-cyan-300 font-bold">
+                                30 families × 4.0 days = 120 family-days (Constant)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             SLIDE 6: QUESTION 4 (PART 1: FIRST 4 LIVING BEINGS FROM TEXTBOOK)
+        ===================================================================== -->
+        <section class="slide" data-title="6. Question 4 (1–4): Sleep Donut Charts">
+            <div class="max-w-6xl mx-auto w-full slide-card p-5 sm:p-8">
+                <div class="anim-in flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3 mb-3">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-indigo-700">Page 67 • Figure it Out — Question 4 (Living Beings 1–4)</span>
+                        <h2 class="text-sm sm:text-lg font-extrabold text-slate-900 editable">
+                            4. Fill in the average number of hours each living being sleeps in a day by looking at the charts. Select the appropriate hours from this list:
+                            <span class="math-font bg-amber-100 text-amber-950 px-2 py-0.5 rounded border border-amber-300">15, 2.5, 20, 8, 3.5, 13, 10.5, 18</span>
+                        </h2>
+                    </div>
+                    <div class="bg-indigo-900 text-white px-3 py-1.5 rounded-xl math-font text-xs font-bold">
+                        Formula: Sleep Hours = (Blue Angle / 360°) × 24 hrs
+                    </div>
+                </div>
+
+                <p class="anim-in d-1 text-xs text-slate-600 mb-3">
+                    <strong>Legend:</strong> <span class="inline-block w-3 h-3 rounded-full bg-[#26466d] align-middle"></span> <strong>Blue = Sleep</strong> &nbsp;|&nbsp; <span class="inline-block w-3 h-3 rounded-full bg-[#e5a91a] align-middle"></span> <strong>Yellow = Awake</strong> (Full Ring = 24 Hours). Select an hour value from each dropdown or click <strong>Reveal Proof</strong>!
+                </p>
+
+                <!-- Grid of First 4 Animals matching textbook column order -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="q4GridPart1">
+                    <!-- Rendered dynamically by JS for exact textbook blue/yellow proportions -->
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             SLIDE 7: QUESTION 4 (PART 2: NEXT 4 LIVING BEINGS + 24-HR SIMULATOR)
+        ===================================================================== -->
+        <section class="slide" data-title="7. Question 4 (5–8) + 24h Sleep Sim">
+            <div class="max-w-6xl mx-auto w-full slide-card p-5 sm:p-8">
+                <div class="anim-in flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3 mb-3">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-indigo-700">Page 67 • Figure it Out — Question 4 (Living Beings 5–8 &amp; Live Simulator)</span>
+                        <h2 class="text-base sm:text-xl font-extrabold text-slate-900 editable">
+                            Remaining 4 Living Beings &amp; Interactive 24-Hour Sleep Simulator
+                        </h2>
+                    </div>
+                    <div class="math-font text-xs bg-amber-100 text-amber-950 px-2.5 py-1 rounded-lg border border-amber-300 font-bold">
+                        List: 15, 2.5, 20, 8, 3.5, 13, 10.5, 18
+                    </div>
+                </div>
+
+                <!-- Grid of Next 4 Animals matching textbook -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-4" id="q4GridPart2">
+                    <!-- Rendered dynamically by JS -->
+                </div>
+
+                <!-- Interactive 24-Hour Sleep Simulator Slider -->
+                <div class="anim-in d-3 bg-slate-900 text-white rounded-2xl p-4 grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                    <div class="md:col-span-3 flex items-center justify-center">
+                        <svg viewBox="0 0 120 120" class="w-24 h-24">
+                            <circle cx="60" cy="60" r="46" fill="none" stroke="#e5a91a" stroke-width="18"/>
+                            <circle id="simSleepArc" cx="60" cy="60" r="46" fill="none" stroke="#26466d" stroke-width="18"
+                                    stroke-dasharray="96.3 289.0" transform="rotate(-90 60 60)" class="transition-all duration-300"/>
+                            <text id="simSleepCenterHrs" x="60" y="64" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">8h</text>
+                        </svg>
+                    </div>
+                    <div class="md:col-span-9 space-y-2">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-amber-400">Interactive 24-Hour Sleep Proportion Simulator</span>
+                            <span id="simSleepMatchAnimal" class="px-2.5 py-0.5 rounded-full bg-indigo-500/30 border border-indigo-400/40 text-xs font-bold text-indigo-200">Matches: Human (8 hrs)</span>
+                        </div>
+                        <input type="range" id="sleepSimSlider" min="1" max="22" step="0.5" value="8" oninput="updateSleepSimulator()" class="w-full">
+                        <div id="simSleepFormulaBar" class="math-font text-xs sm:text-sm text-teal-300 font-bold">
+                            Sleep = 8 hrs | Awake = 16 hrs | Angle = (8 / 24) × 360° = 120° | Ratio = 1 : 3
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Slide Navigation Bar -->
+    <footer class="fixed bottom-3 left-1/2 -translate-x-1/2 z-40 bg-slate-900/95 backdrop-blur-md border border-slate-700 px-4 py-1.5 rounded-full flex items-center gap-4 shadow-2xl">
+        <button id="prevBtn" onclick="prevSlide()" class="p-1.5 rounded-full hover:bg-slate-800 text-slate-300 hover:text-white disabled:opacity-30 transition" title="Previous Slide (Left Arrow)">
+            ◀
+        </button>
+        <span id="slideCounter" class="math-font text-xs sm:text-sm font-extrabold text-amber-400">1 / 7</span>
+        <button id="nextBtn" onclick="nextSlide()" class="p-1.5 rounded-full hover:bg-slate-800 text-slate-300 hover:text-white disabled:opacity-30 transition" title="Next Slide (Right Arrow)">
+            ▶
+        </button>
+    </footer>
+
+    <!-- Slide Overview Modal -->
+    <div id="gridModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden flex-col items-center justify-center p-6">
+        <div class="max-w-4xl w-full">
+            <div class="flex items-center justify-between mb-5">
+                <h3 class="text-xl font-extrabold text-white">Slide Overview — Ganita Prakash (Part 2) Page 67</h3>
+                <button onclick="toggleGridModal()" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-200 font-bold">✕ Close</button>
+            </div>
+            <div id="gridContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5"></div>
+        </div>
+    </div>
+
+    <script>
+        /* =====================================================================
+           SLIDE DECK NAVIGATION & KEYBOARD / TOUCH CONTROLS
+        ===================================================================== */
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+        let isEditMode = false;
+
+        const stepStates = {
+            q2: { current: 1, total: 4 },
+            q3: { current: 1, total: 4 }
+        };
+
+        function updateDeckUI() {
+            slides.forEach((s, idx) => {
+                s.classList.remove('active', 'prev');
+                if (idx === currentSlide) s.classList.add('active');
+                else if (idx < currentSlide) s.classList.add('prev');
+            });
+            document.getElementById('progressBar').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() { if (currentSlide < totalSlides - 1) { currentSlide++; updateDeckUI(); } }
+        function prevSlide() { if (currentSlide > 0) { currentSlide--; updateDeckUI(); } }
+        function goToSlide(idx) {
+            currentSlide = idx;
+            updateDeckUI();
+            const m = document.getElementById('gridModal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (isEditMode || e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+            else if (e.key === 'Escape') {
+                const m = document.getElementById('gridModal');
+                m.classList.add('hidden');
+                m.classList.remove('flex');
+            }
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            if (isEditMode) return;
+            const diff = e.changedTouches[0].screenX - touchStartX;
+            if (Math.abs(diff) > 55) { diff < 0 ? nextSlide() : prevSlide(); }
+        }, { passive: true });
+
+        /* =====================================================================
+           SLIDES 2 & 3: QUESTION 1 INTERACTIVE SIMULATIONS
+        ===================================================================== */
+        function updateTapsSim() {
+            const taps = parseInt(document.getElementById('simTapsSlider').value, 10);
+            const time = 60 / taps; // Fixed 60L tank
+            document.getElementById('simTapsVal').textContent = taps;
+            document.getElementById('simTapsTime').textContent = `${time} min`;
+            document.getElementById('tapsIconsRow').textContent = '🚰'.repeat(taps);
+            document.getElementById('simTapWater').style.width = `${(taps / 6) * 100}%`;
+        }
+
+        function updatePaintersSim() {
+            const painters = parseInt(document.getElementById('simPaintersSlider').value, 10);
+            const days = +(24 / painters).toFixed(1);
+            document.getElementById('simPaintersVal').textContent = painters;
+            document.getElementById('simPaintersDays').textContent = `${days} days`;
+            document.getElementById('paintersIconsRow').textContent = '🧑‍🎨'.repeat(Math.min(painters, 6)) + (painters > 6 ? `+${painters - 6}` : '');
+            document.getElementById('paintersProductLabel').textContent = `${painters} × ${days} = 24`;
+        }
+
+        function updatePetrolSim() {
+            const litres = parseInt(document.getElementById('simPetrolSlider').value, 10);
+            const dist = litres * 15;
+            document.getElementById('simPetrolVal').textContent = `${litres} L`;
+            document.getElementById('simPetrolDist').textContent = `${dist} km`;
+            document.getElementById('simPetrolBar').style.width = `${(litres / 10) * 100}%`;
+        }
+
+        function updateCyclistSim() {
+            const speed = parseInt(document.getElementById('simCyclistSlider').value, 10);
+            const time = +(60 / speed).toFixed(1);
+            document.getElementById('simCyclistSpeed').textContent = `${speed} km/h`;
+            document.getElementById('simCyclistTime').textContent = `${time} hrs`;
+            document.getElementById('cyclistEqLabel').textContent = `${speed} × ${time} = 60 km`;
+            document.getElementById('cyclistTrackFill').style.width = `${(speed / 30) * 100}%`;
+        }
+
+        function animateCyclistDash() {
+            const bar = document.getElementById('cyclistTrackFill');
+            const speed = parseInt(document.getElementById('simCyclistSlider').value, 10);
+            bar.style.transition = 'none';
+            bar.style.width = '5%';
+            setTimeout(() => {
+                bar.style.transition = `width ${(35 / speed).toFixed(2)}s linear`;
+                bar.style.width = '100%';
+            }, 30);
+        }
+
+        function updateClothSim() {
+            const m = parseInt(document.getElementById('simClothSlider').value, 10);
+            document.getElementById('simClothVal').textContent = `${m} m`;
+            document.getElementById('simClothPrice').textContent = `₹${m * 80}`;
+        }
+
+        function updatePagesSim() {
+            const pages = parseInt(document.getElementById('simPagesSlider').value, 10);
+            document.getElementById('simPagesVal').textContent = `${pages} pages`;
+            document.getElementById('simPagesTime').textContent = `${pages / 20} hrs`;
+        }
+
+        /* =====================================================================
+           SLIDES 4 & 5: STEP-BY-STEP REVEALS + PENCIL & WATER TANK SIMS
+        ===================================================================== */
+        function revealNextStep(qId) {
+            const state = stepStates[qId];
+            const boxes = document.getElementById(`${qId}Steps`).querySelectorAll('.step-box');
+            if (state.current < state.total) {
+                boxes[state.current].classList.add('revealed');
+                state.current++;
+            } else {
+                boxes.forEach((b, idx) => { if (idx > 0) b.classList.remove('revealed'); });
+                state.current = 1;
+            }
+            document.getElementById(`${qId}Badge`).textContent = `${state.current} / ${state.total}`;
+        }
+
+        function setPencilSlider(val) {
+            document.getElementById('pencilSlider').value = val;
+            updatePencilSim();
+        }
+
+        function updatePencilSim() {
+            const count = parseInt(document.getElementById('pencilSlider').value, 10);
+            const cost = count * 5;
+            document.getElementById('pencilCountText').textContent = count;
+            document.getElementById('pencilCostText').textContent = `₹${cost}`;
+            document.getElementById('livePencilEq').textContent = `24 / 120 = ${count} / ${cost} = 0.20 (₹5/pencil)`;
+
+            const grid = document.getElementById('pencilVisualGrid');
+            grid.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const span = document.createElement('span');
+                span.className = 'text-base leading-none';
+                span.textContent = '✏️';
+                grid.appendChild(span);
+            }
+        }
+
+        function setFamiliesSlider(val) {
+            document.getElementById('familiesSlider').value = val;
+            updateTankSim();
+        }
+
+        function updateTankSim() {
+            const fam = parseInt(document.getElementById('familiesSlider').value, 10);
+            const days = +(120 / fam).toFixed(1);
+            document.getElementById('simFamiliesText').textContent = fam;
+            document.getElementById('simDaysText').textContent = `${days} days`;
+            document.getElementById('tankSvgMain').textContent = `${fam} Families`;
+            document.getElementById('tankSvgSub').textContent = `Water lasts ${days} days`;
+            document.getElementById('tankProductEq').textContent = `${fam} families × ${days} days = 120 family-days (Constant)`;
+
+            // Adjust water height visually proportional to days (max 12 days = 82px)
+            const h = Math.min(82, Math.max(18, (days / 12) * 82));
+            const y = 110 - h;
+            const rect = document.getElementById('rooftopWaterLevel');
+            rect.setAttribute('y', y.toFixed(1));
+            rect.setAttribute('height', h.toFixed(1));
+            rect.setAttribute('fill', days <= 4 ? 'rgba(244, 63, 94, 0.7)' : 'rgba(14, 165, 233, 0.65)');
+        }
+
+        /* =====================================================================
+           SLIDES 6 & 7: QUESTION 4 — EXACT 8 TEXTBOOK DONUT CHARTS + SIMULATOR
+        ===================================================================== */
+        const textbookAnimals = [
+            { id: 1, name: 'Giraffe', emoji: '🦒', hours: 2.5, angle: 37.5, desc: 'Tiny blue sliver (~1/10 of day)' },
+            { id: 2, name: 'Elephant', emoji: '🐘', hours: 3.5, angle: 52.5, desc: 'Small blue wedge (~1/7 of day)' },
+            { id: 3, name: 'Human', emoji: '🧑', hours: 8, angle: 120, desc: 'Exactly 1/3 of circle (120°)' },
+            { id: 4, name: 'Dog', emoji: '🐕', hours: 10.5, angle: 157.5, desc: 'Just under half blue (<180°)' },
+            { id: 5, name: 'Cat', emoji: '🐈', hours: 13, angle: 195, desc: 'Just over half blue (>180°)' },
+            { id: 6, name: 'Squirrel', emoji: '🐿️', hours: 15, angle: 225, desc: 'Five-eighths blue (225°)' },
+            { id: 7, name: 'Snake (Python)', emoji: '🐍', hours: 18, angle: 270, desc: 'Three-quarters blue (270°)' },
+            { id: 8, name: 'Bat', emoji: '🦇', hours: 20, angle: 300, desc: 'Almost full blue ring (300°)' }
+        ];
+
+        const hoursOptions = ['2.5', '3.5', '8', '10.5', '13', '15', '18', '20'];
+
+        function buildDonutCard(animal) {
+            const r = 40;
+            const circ = 2 * Math.PI * r; // ~251.33
+            const blueLen = (animal.hours / 24) * circ;
+
+            const card = document.createElement('div');
+            card.className = 'bg-slate-50 border-2 border-slate-200 hover:border-indigo-400 rounded-2xl p-3.5 flex flex-col items-center text-center transition shadow-sm';
+            card.innerHTML = `
+                <div class="w-full flex items-center justify-between text-xs font-extrabold text-slate-700 mb-1">
+                    <span>#${animal.id} ${animal.name}</span>
+                    <span class="math-font text-[11px] text-indigo-700">${animal.angle}°</span>
+                </div>
+
+                <!-- Blue & Yellow Donut Ring matching Ganita Prakash Page 67 -->
+                <div class="relative w-28 h-28 my-1 flex items-center justify-center">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <!-- Yellow Awake Ring -->
+                        <circle cx="50" cy="50" r="${r}" fill="none" stroke="#e5a91a" stroke-width="15"/>
+                        <!-- Blue Sleep Sector -->
+                        <circle cx="50" cy="50" r="${r}" fill="none" stroke="#26466d" stroke-width="15"
+                                stroke-dasharray="${blueLen.toFixed(2)} ${circ.toFixed(2)}"
+                                transform="rotate(-90 50 50)"/>
+                    </svg>
+                    <span class="absolute text-3xl select-none">${animal.emoji}</span>
+                </div>
+
+                <div class="text-[11px] text-slate-500 font-medium mb-2">${animal.desc}</div>
+
+                <!-- Interactive Student Dropdown + Reveal Button -->
+                <div class="w-full flex gap-1.5">
+                    <select onchange="checkAnimalDropdown(this, ${animal.hours}, 'fb_${animal.id}')" class="flex-1 text-xs font-bold math-font bg-white border border-slate-300 rounded-lg px-2 py-1.5 text-slate-800">
+                        <option value="">Pick hrs...</option>
+                        ${hoursOptions.map(h => `<option value="${h}">${h} hrs</option>`).join('')}
+                    </select>
+                    <button onclick="revealAnimalProof(${animal.id}, ${animal.hours}, ${animal.angle})" class="px-2.5 py-1.5 rounded-lg bg-indigo-900 hover:bg-indigo-800 text-white text-[11px] font-bold">
+                        Proof
+                    </button>
+                </div>
+
+                <div id="fb_${animal.id}" class="hidden w-full mt-2 p-2 rounded-lg text-[11px] math-font font-bold text-left"></div>
+            `;
+            return card;
+        }
+
+        function checkAnimalDropdown(sel, correctHrs, fbId) {
+            const fb = document.getElementById(fbId);
+            if (!sel.value) { fb.classList.add('hidden'); return; }
+            const chosen = parseFloat(sel.value);
+            fb.classList.remove('hidden');
+            if (chosen === correctHrs) {
+                fb.className = 'w-full mt-2 p-2 rounded-lg text-[11px] math-font font-bold text-left bg-teal-100 text-teal-900 border border-teal-300';
+                fb.textContent = `✓ Correct! ${correctHrs} hrs (${correctHrs}/24 of a day)`;
+            } else {
+                fb.className = 'w-full mt-2 p-2 rounded-lg text-[11px] math-font font-bold text-left bg-rose-100 text-rose-900 border border-rose-300';
+                fb.textContent = `✗ Try again! Look at the blue vs yellow ring fraction.`;
+            }
+        }
+
+        function revealAnimalProof(id, hrs, angle) {
+            const fb = document.getElementById(`fb_${id}`);
+            fb.classList.remove('hidden');
+            fb.className = 'w-full mt-2 p-2 rounded-lg text-[11px] math-font font-bold text-left bg-indigo-100 text-indigo-950 border border-indigo-300';
+            fb.innerHTML = `(${angle}° / 360°) × 24 = <span class="text-teal-700 underline">${hrs} hours</span>`;
+        }
+
+        function renderAllTextbookDonuts() {
+            const g1 = document.getElementById('q4GridPart1');
+            const g2 = document.getElementById('q4GridPart2');
+            textbookAnimals.slice(0, 4).forEach(a => g1.appendChild(buildDonutCard(a)));
+            textbookAnimals.slice(4, 8).forEach(a => g2.appendChild(buildDonutCard(a)));
+        }
+
+        function updateSleepSimulator() {
+            const hrs = parseFloat(document.getElementById('sleepSimSlider').value);
+            const awake = +(24 - hrs).toFixed(1);
+            const angle = +((hrs / 24) * 360).toFixed(1);
+            const circ = 2 * Math.PI * 46; // 289.03
+            const arcLen = (hrs / 24) * circ;
+
+            document.getElementById('simSleepArc').setAttribute('stroke-dasharray', `${arcLen.toFixed(2)} ${circ.toFixed(2)}`);
+            document.getElementById('simSleepCenterHrs').textContent = `${hrs}h`;
+            document.getElementById('simSleepFormulaBar').textContent =
+                `Sleep = ${hrs} hrs | Awake = ${awake} hrs | Angle = (${hrs} / 24) × 360° = ${angle}°`;
+
+            const match = textbookAnimals.find(a => a.hours === hrs);
+            const badge = document.getElementById('simSleepMatchAnimal');
+            badge.textContent = match ? `Matches Textbook: ${match.emoji} ${match.name} (${hrs} hrs)` : `Custom: ${hrs} hrs / 24 hrs`;
+        }
+
+        /* =====================================================================
+           CLASSROOM UTILITIES (EDIT MODE, OVERVIEW GRID, FULLSCREEN)
+        ===================================================================== */
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            document.body.classList.toggle('edit-mode', isEditMode);
+            document.querySelectorAll('.editable').forEach(el => el.setAttribute('contenteditable', isEditMode ? 'true' : 'false'));
+            document.getElementById('editBtnText').textContent = isEditMode ? 'Done' : 'Edit Text';
+        }
+
+        function toggleGridModal() {
+            const modal = document.getElementById('gridModal');
+            const container = document.getElementById('gridContainer');
+            if (modal.classList.contains('hidden')) {
+                container.innerHTML = '';
+                slides.forEach((s, idx) => {
+                    const btn = document.createElement('button');
+                    btn.onclick = () => goToSlide(idx);
+                    btn.className = `p-4 rounded-xl text-left bg-slate-900 border ${idx === currentSlide ? 'border-amber-400 ring-2 ring-amber-400/50' : 'border-slate-700 hover:border-teal-400'} transition`;
+                    btn.innerHTML = `<span class="text-xs font-extrabold text-teal-400">Slide ${idx + 1}</span><div class="text-sm font-bold text-white mt-1">${s.dataset.title}</div>`;
+                    container.appendChild(btn);
+                });
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+            else document.exitFullscreen().catch(() => {});
+        }
+
+        window.onload = () => {
+            updateDeckUI();
+            updateTapsSim();
+            updatePaintersSim();
+            updatePetrolSim();
+            updateCyclistSim();
+            updateClothSim();
+            updatePagesSim();
+            updatePencilSim();
+            updateTankSim();
+            renderAllTextbookDonuts();
+            updateSleepSimulator();
+        };
+    </script>
+</body>
+</html>
